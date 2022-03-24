@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<project name="CodegenExample" default="main" basedir=".">
+
+    <!-- navigate to extension directory and execute -->
+    <!-- ant -buildfile wsdl2java.xml -->
+
+    <dirname property="current.dir" file="${ant.file}" />
+
+    <path id="libraries">
+        <fileset dir="${current.dir}/codegen">
+            <include name="istack-commons-runtime-4.0.1.jar" />
+            <include name="jaxb-runtime-2.3.2.jar" />
+            <include name="jaxb-xjc-2.3.2.jar" />
+            <include name="jaxws-rt-2.3.2.jar" />
+            <include name="jaxws-tools-2.3.2.jar" />
+            <include name="policy-3.0.1.jar" />
+            <include name="stax-ex-2.0.1.jar" />
+            <include name="streambuffer-2.0.2.jar" />
+        </fileset>
+        <fileset dir="${current.dir}/codegen2">
+            <include name="jaxws-api-2.3.1.jar" />
+            <include name="javax.jws-api-1.1.jar" />
+            <include name="jaxb-api-2.3.1.jar" />
+            <include name="activation-1.1.1.jar" />
+        </fileset>
+    </path>
+
+    <target name="declare">
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport2" classpathref="libraries" />
+    </target>
+
+    <target name="main" depends="declare">
+        <wsimport wsdl="${current.dir}/resources/soapdefinition.xml" sourcedestdir="${current.dir}/src" xnocompile="true" />
+    </target>
+</project>
