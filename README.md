@@ -9,6 +9,7 @@
 ## Current Specifications
 - SapMachine 11, see https://sap.github.io/SapMachine/ 
 - Maven 3.8.1, see https://maven.apache.org/download.cgi
+- Apache Ant 1.10.11, see https://ant.apache.org/bindownload.cgi
 
 ## But how can I run the things?
 - Search for the run.cmd
