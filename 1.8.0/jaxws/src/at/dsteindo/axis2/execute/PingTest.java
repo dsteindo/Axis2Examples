@@ -45,11 +45,8 @@ public class PingTest {
     }
 
     public void threadWorker() {
-        int count = atomicCount.incrementAndGet();
-        while (count < 201) 
-        {
+        while (atomicCount.incrementAndGet() < 201) {
             ping();
-            count = atomicCount.incrementAndGet();
         }
     }
 

@@ -47,17 +47,13 @@ public class EchoTest {
     }
 
     public void threadWorker() {
-        int count = atomicCount.incrementAndGet();
-        while (count < 201) 
-        {
+        while (atomicCount.incrementAndGet() < 201) {
             echo();
-            count = atomicCount.incrementAndGet();
         }
     }
 
     public void echo() {
         try {
-            
             // Build the input object
             EchoStringInput echoParm = new ObjectFactory().createEchoStringInput();
             echoParm.setEchoInput("hello");
