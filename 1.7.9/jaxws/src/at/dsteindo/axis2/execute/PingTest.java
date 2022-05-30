@@ -2,23 +2,26 @@ package at.dsteindo.axis2.execute;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.xml.ws.BindingProvider;
 
 import bs_cavok_soap.BsCavokSoap;
 import bs_cavok_soap.BsCavokSoapPortType;
+import bs_cavok_soap.LoginResponse;
 import bs_cavok_soap.PingStringInput;
 
 public class PingTest {
 
     private BsCavokSoapPortType serviceInternal = null;
+    private AtomicInteger atomicCount = new AtomicInteger(0);
 
     public void execute() {
         ping();
         ping();
         List<Thread> threads = new ArrayList<>();
-        for (int i = 0; i < 201; i++) {
-            Thread t = new Thread(() -> ping());
+        for (int i = 0; i < 8; i++) {
+            Thread t = new Thread(() -> threadWorker());
             t.start();
             threads.add(t);
         }
@@ -41,10 +44,20 @@ public class PingTest {
         threads.forEach(t -> t.interrupt());
     }
 
+    public void threadWorker() {
+        int count = atomicCount.incrementAndGet();
+        while (count < 201) 
+        {
+            ping();
+            count = atomicCount.incrementAndGet();
+        }
+    }
+
     public void ping() {
         PingStringInput input = new PingStringInput();
         input.setPingInput("hello");
-        getService().pingOperation(input);
+        LoginResponse response = getService().pingOperation(input);
+        System.out.println(response.getSessionID());
     }
 
     public BsCavokSoapPortType getService() {

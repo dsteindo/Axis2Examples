@@ -21,13 +21,13 @@ public class PingController {
         response.addHeader("Connection", "Keep-Alive");
         response.addHeader("Keep-Alive", "timeout=5, max=90");
         return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-                + "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:bs_cavok_soap=\"urn:bs_cavok_soap\">"
+                + "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"urn:bs_cavok_soap\">"
                 + "<soapenv:Body>"
-                + "<bs_cavok_soap:loginResponse>"
-                + "<bs_cavok_soap:sessionID>"
+                + "<ns1:loginResponse>"
+                + "<sessionID>"
                 + UUID.randomUUID().toString()
-                + "</bs_cavok_soap:sessionID>"
-                + "</bs_cavok_soap:loginResponse>"
+                + "</sessionID>"
+                + "</ns1:loginResponse>"
                 + "</soapenv:Body>"
                 + "</soapenv:Envelope>";
     }

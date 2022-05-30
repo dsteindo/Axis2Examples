@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import at.dsteindo.axis2.execute.EchoTest;
 import at.dsteindo.axis2.execute.PingTest;
 
 public class Registry {
@@ -15,8 +16,9 @@ public class Registry {
         Locale.setDefault(Locale.ENGLISH); // avoid problems if host environment is non English
         applicationContext = SpringApplication.run(Application.class, args);
 
-        new PingTest().execute();
-
+        // new PingTest().execute();
+        new EchoTest().execute();
+        
         applicationContext.close();
     }
 
