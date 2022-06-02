@@ -7,7 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import at.dsteindo.axis2.execute.EchoTest;
-import at.dsteindo.axis2.execute.PingTest;
+import at.dsteindo.axis2.execute.ThreadedExecutor;
 
 public class Registry {
     private static ConfigurableApplicationContext applicationContext;
@@ -17,8 +17,14 @@ public class Registry {
         applicationContext = SpringApplication.run(Application.class, args);
 
         // new PingTest().execute();
-        new EchoTest().execute();
-        
+
+        EchoTest test = new EchoTest();
+        test.echo();
+        test.echo();
+
+        ThreadedExecutor executor = new ThreadedExecutor(test::echo);
+        executor.execute();
+
         applicationContext.close();
     }
 
